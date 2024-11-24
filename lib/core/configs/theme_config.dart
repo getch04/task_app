@@ -4,6 +4,7 @@ import 'package:tasks_app/core/constants/app_colors.dart';
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
+      fontFamily: 'CabinetGrotesk',
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
       appBarTheme: const AppBarTheme(
