@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/core/theme/app_theme.dart';
-
-import '../../domain/entities/task.dart';
-import 'task_card.dart';
+import 'package:tasks_app/features/task_management/domain/entities/task.dart';
+import 'package:tasks_app/features/task_management/presentation/widgets/task_card.dart';
 
 class TaskSection extends StatelessWidget {
   final String title;

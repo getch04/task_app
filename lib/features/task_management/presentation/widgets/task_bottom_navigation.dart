@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
+
+import '../../../../core/constants/strings.dart';
 
 class TaskBottomNavigation extends StatelessWidget {
   const TaskBottomNavigation({super.key});
@@ -40,4 +41,4 @@ class TaskBottomNavigation extends StatelessWidget {
       ),
     );
   }
-} 
+}

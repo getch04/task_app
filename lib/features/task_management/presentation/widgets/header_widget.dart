@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/core/constants/strings.dart';
 
-class TaskHeader extends StatelessWidget {
-  const TaskHeader({super.key});
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +14,7 @@ class TaskHeader extends StatelessWidget {
           _buildIconButton(Icons.notifications_outlined),
           const Text(
             AppStrings.appTitle,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           _buildIconButton(Icons.archive_outlined),
         ],
@@ -34,10 +31,7 @@ class TaskHeader extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Icon(
-            icon,
-            size: 32,
-          ),
+          child: Icon(icon, size: 32),
         ),
       ),
       onPressed: () {},
