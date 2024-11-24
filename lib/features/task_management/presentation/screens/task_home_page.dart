@@ -2,6 +2,7 @@
 import 'dart:math' show min, Random;
 
 import 'package:flutter/material.dart';
+import 'package:tasks_app/core/constants/strings.dart';
 import 'package:tasks_app/features/task_management/presentation/widgets/add_task_bottom_sheet.dart';
 
 class Task {
@@ -91,9 +92,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 )),
             onPressed: () {},
           ),
-          const Text(
-            'DH',
-            style: TextStyle(
+          Text(
+            AppStrings.appTitle,
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -127,7 +128,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         height: 55,
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Search',
+            hintText: AppStrings.search,
             hintStyle: TextStyle(
               color: Colors.grey[600],
               fontSize: 16,
@@ -161,15 +162,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildFilterButton('Today', Icons.calendar_today),
+          _buildFilterButton(AppStrings.today, Icons.calendar_today),
           const SizedBox(
             width: 10,
           ),
-          _buildFilterButton('Scheduled', Icons.schedule),
+          _buildFilterButton(AppStrings.scheduled, Icons.schedule),
           const SizedBox(
             width: 10,
           ),
-          _buildFilterButton('Assigned to me', Icons.person_outline),
+          _buildFilterButton(AppStrings.assignedToMe, Icons.person_outline),
         ],
       ),
     );
@@ -205,8 +206,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget _buildTaskList() {
     return ListView(
       children: [
-        _buildTeamSection('Development Team', tasks),
-        _buildTeamSection('AIG Study Team', []),
+        _buildTeamSection(AppStrings.developmentTeam, tasks),
+        _buildTeamSection(AppStrings.aigStudyTeam, []),
       ],
     );
   }
@@ -486,7 +487,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
             Icon(Icons.add, color: Theme.of(context).primaryColor),
             const SizedBox(width: 8),
             Text(
-              'Add Task',
+              AppStrings.addTask,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 19,
@@ -520,15 +521,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Tasks',
+            label: AppStrings.tasks,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_outline),
-            label: 'Communication',
+            label: AppStrings.communication,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
-            label: 'Profile',
+            label: AppStrings.profile,
           ),
         ],
       ),
@@ -547,294 +548,5 @@ class _TaskListScreenState extends State<TaskListScreen> {
       ];
       return colors[Random().nextInt(colors.length)];
     });
-  }
-}
-
-// lib/features/task_management/presentation/widgets/add_task_dialog.dart
-
-class AddTaskDialog extends StatefulWidget {
-  final Function(String title, String? assignee, DateTime? dueDate)?
-      onCreateTask;
-
-  const AddTaskDialog({
-    super.key,
-    this.onCreateTask,
-  });
-
-  @override
-  State<AddTaskDialog> createState() => _AddTaskDialogState();
-}
-
-class _AddTaskDialogState extends State<AddTaskDialog> {
-  final _taskNameController = TextEditingController();
-  String? _selectedMember;
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
-
-  @override
-  void dispose() {
-    _taskNameController.dispose();
-    super.dispose();
-  }
-
-  void _handleCreateTask() {
-    final title = _taskNameController.text;
-    if (title.isEmpty) return;
-
-    DateTime? finalDateTime;
-    if (_selectedDate != null && _selectedTime != null) {
-      finalDateTime = DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-        _selectedTime!.hour,
-        _selectedTime!.minute,
-      );
-    }
-
-    widget.onCreateTask?.call(title, _selectedMember, finalDateTime);
-    Navigator.of(context).pop();
-  }
-
-  Future<void> _selectDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
-    if (picked != null) {
-      setState(() => _selectedDate = picked);
-    }
-  }
-
-  Future<void> _selectTime() async {
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (picked != null) {
-      setState(() => _selectedTime = picked);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 24),
-              _buildTaskNameField(),
-              const SizedBox(height: 24),
-              _buildMemberSelection(),
-              const SizedBox(height: 24),
-              _buildDateSelection(),
-              const SizedBox(height: 24),
-              _buildTimeSelection(),
-              const SizedBox(height: 32),
-              _buildCreateButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Add Task',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTaskNameField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Task Name',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _taskNameController,
-          decoration: InputDecoration(
-            hintText: 'Insert Task Name',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            filled: true,
-            fillColor: Colors.grey[200],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMemberSelection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Assign Member (Optional)',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: DropdownButtonFormField<String>(
-            value: _selectedMember,
-            decoration: const InputDecoration(
-              hintText: 'Select Member',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-            ),
-            items: const [
-              DropdownMenuItem(value: 'M', child: Text('Member 1')),
-              DropdownMenuItem(value: 'T', child: Text('Member 2')),
-              DropdownMenuItem(value: 'MG', child: Text('Member 3')),
-            ],
-            onChanged: (value) => setState(() => _selectedMember = value),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDateSelection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Due Date (Optional)',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 8),
-        InkWell(
-          onTap: _selectDate,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _selectedDate != null
-                      ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                      : 'Insert Due Date',
-                  style: TextStyle(
-                    color:
-                        _selectedDate != null ? Colors.black : Colors.grey[600],
-                  ),
-                ),
-                const Icon(Icons.calendar_today),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTimeSelection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Due Time (Optional)',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 8),
-        InkWell(
-          onTap: _selectTime,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _selectedTime != null
-                      ? _selectedTime!.format(context)
-                      : 'Insert Due Time',
-                  style: TextStyle(
-                    color:
-                        _selectedTime != null ? Colors.black : Colors.grey[600],
-                  ),
-                ),
-                const Icon(Icons.access_time),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCreateButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _handleCreateTask,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4834D4),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: const Text(
-          'Create Task',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
   }
 }

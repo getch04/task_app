@@ -44,7 +44,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           keyboardType: keyboardType,
           decoration: InputDecoration(
-            hintText: hintText ?? 'Enter $label',
+            hintText: hintText ?? 'Insert $label',
             prefixIcon: prefixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
