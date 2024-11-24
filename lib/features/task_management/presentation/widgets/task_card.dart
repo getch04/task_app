@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
+import 'package:tasks_app/core/theme/app_theme.dart';
+
 import '../../domain/entities/task.dart';
 
 class TaskCard extends StatelessWidget {
@@ -41,6 +42,7 @@ class TaskCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    color: AppTheme.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -55,7 +57,7 @@ class TaskCard extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.more_horiz, color: Colors.grey),
+            icon: const Icon(Icons.more_horiz, color: AppTheme.textSecondary),
             onPressed: onMorePressed,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
@@ -69,7 +71,9 @@ class TaskCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: task.progress == 0 ? Colors.red[50] : Colors.amber[50],
+        color: task.progress == 0
+            ? AppTheme.error.withOpacity(0.1)
+            : AppTheme.warning.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -78,14 +82,14 @@ class TaskCard extends StatelessWidget {
           Icon(
             Icons.access_time,
             size: 14,
-            color: task.progress == 0 ? Colors.red : Colors.amber[700],
+            color: task.progress == 0 ? AppTheme.error : AppTheme.warning,
           ),
           const SizedBox(width: 4),
           Text(
             '${task.dueDate!.hour}:${task.dueDate!.minute.toString().padLeft(2, '0')} PM',
             style: TextStyle(
               fontSize: 12,
-              color: task.progress == 0 ? Colors.red[900] : Colors.amber[900],
+              color: task.progress == 0 ? AppTheme.error : AppTheme.warning,
             ),
           ),
         ],
@@ -115,9 +119,9 @@ class TaskCard extends StatelessWidget {
       width: 24,
       height: 24,
       decoration: BoxDecoration(
-        color: AppColors.primary,
+        color: AppTheme.primary,
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 1.5),
+        border: Border.all(color: AppTheme.surface, width: 1.5),
       ),
       child: Center(
         child: Text(

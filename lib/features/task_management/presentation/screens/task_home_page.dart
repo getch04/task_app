@@ -3,6 +3,7 @@ import 'dart:math' show min, Random;
 
 import 'package:flutter/material.dart';
 import 'package:tasks_app/core/constants/strings.dart';
+import 'package:tasks_app/core/theme/app_theme.dart';
 import 'package:tasks_app/features/task_management/presentation/widgets/add_task_bottom_sheet.dart';
 
 class Task {
@@ -92,9 +93,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 )),
             onPressed: () {},
           ),
-          Text(
+          const Text(
             AppStrings.appTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
@@ -181,18 +182,18 @@ class _TaskListScreenState extends State<TaskListScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
         decoration: BoxDecoration(
-          color: const Color(0xFFefecf8),
+          color: AppTheme.iconBackground,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Theme.of(context).primaryColor),
         ),
         child: Column(
           children: [
-            Icon(icon, color: Colors.grey[600]),
+            Icon(icon, color: AppTheme.textSecondary),
             const SizedBox(height: 4),
             Text(
               label,
-              style: TextStyle(
-                color: Colors.grey[600],
+              style: const TextStyle(
+                color: AppTheme.textSecondary,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
@@ -311,7 +312,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
   }
 
   Widget _buildTaskItem(Task task) {
-    return Padding(
+    return
+
+    Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +353,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       '${task.progress.toInt()}%',
                       style: TextStyle(
                         fontSize: 16,
-                        color: task.progress != 0 ? Colors.grey : Colors.red,
+                        color: task.progress != 0
+                            ? AppTheme.textSecondary
+                            : AppTheme.error,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -367,8 +372,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: task.progress != 0
-                            ? Colors.amber[100]
-                            : Colors.red[100],
+                            ? AppTheme.warning.withOpacity(0.2)
+                            : AppTheme.error.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -435,6 +440,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
         ],
       ),
     );
+
+
   }
 
   Widget _buildAssigneeChip(String initials, {Color? backgroundColor}) {
@@ -549,4 +556,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
       return colors[Random().nextInt(colors.length)];
     });
   }
+
+
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/core/theme/app_theme.dart';
 
 import '../../domain/entities/task.dart';
 import 'task_card.dart';
@@ -20,7 +21,7 @@ class TaskSection extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -42,20 +43,20 @@ class TaskSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.expand_less, color: Colors.grey[600]),
+              const Icon(Icons.expand_less, color: AppTheme.textSecondary),
               const SizedBox(width: 8),
               Text(
                 title,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.indigo,
+                  color: AppTheme.primary,
                 ),
               ),
             ],
           ),
           IconButton(
-            icon: const Icon(Icons.more_horiz, color: Colors.grey),
+            icon: const Icon(Icons.more_horiz, color: AppTheme.textSecondary),
             onPressed: () {},
           ),
         ],

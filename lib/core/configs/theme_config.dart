@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -24,7 +23,7 @@ class AppTheme {
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: const Color(0xFFfbfafe),
     );
   }
 }
