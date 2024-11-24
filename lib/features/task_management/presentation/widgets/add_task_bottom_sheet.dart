@@ -1,5 +1,13 @@
 part of task_management_presentation_widgets;
 
+/// A bottom sheet widget that provides a form for creating new tasks.
+///
+/// This widget includes:
+/// - Task title input
+/// - Member assignment dropdown
+/// - Due date picker
+/// - Due time picker
+/// - Create task button
 class AddTaskBottomSheet extends ConsumerStatefulWidget {
   const AddTaskBottomSheet({super.key});
 
@@ -17,18 +25,20 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
     super.dispose();
   }
 
+  /// Shows a date picker dialog and updates the selected date in the form
   Future<void> _selectDate() async {
     final picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      firstDate: DateTime.now(),  // Prevents selecting past dates
+      lastDate: DateTime.now().add(const Duration(days: 365)),  // Limits to 1 year ahead
     );
     if (picked != null) {
       setState(() => _taskForm.selectedDate = picked);
     }
   }
 
+  /// Shows a time picker dialog and updates the selected time in the form
   Future<void> _selectTime() async {
     final picked = await showTimePicker(
       context: context,
@@ -39,10 +49,15 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
     }
   }
 
+  /// Validates and submits the task creation form
   void _handleCreateTask() {
     if (!_formKey.currentState!.validate()) return;
 
-    // implementation will be here
+    // TODO: Implement task creation logic
+    // Should include:
+    // - Creating Task entity from form data
+    // - Calling task repository to save
+    // - Showing success/error feedback
 
     Navigator.pop(context);
   }
@@ -238,6 +253,7 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
       );
 }
 
+/// Manages the form state and data for task creation
 class TaskForm {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -245,14 +261,21 @@ class TaskForm {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
+  /// Returns the current title input value
   String get title => titleController.text;
+
+  /// Returns the current description input value
   String get description => descriptionController.text;
 
+  /// Cleans up controllers to prevent memory leaks
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
   }
 
+  /// Combines the selected date and time into a single DateTime object
+  ///
+  /// Returns null if either date or time is not selected
   DateTime? getDueDateTime() {
     if (selectedDate == null || selectedTime == null) return null;
 
