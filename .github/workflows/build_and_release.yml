@@ -2,8 +2,10 @@ name: Build and Release
 
 on:
   push:
-    tags:
-      - 'v*' # Trigger on version tags
+    branches:
+      - main
+    # tags:
+    #   - 'v*' # Trigger on version tags
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -36,15 +38,15 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'  # Keeping your specified version
+          flutter-version: '3.24.3' # Match your local Flutter version
           channel: 'stable'
           cache: true
 
-      - name: Override Dart SDK constraints
-        run: |
-          sed -i.bak 's/sdk: \^3.5.3/sdk: ">=3.0.0 <4.0.0"/' pubspec.yaml
+      - name: Sync Gradle Dependencies
+        if: matrix.platform == 'android'
+        run: ./gradlew --refresh-dependencies
 
-      - name: Get dependencies
+      - name: Get Dependencies
         run: flutter pub get
 
       - name: Build Android
@@ -96,4 +98,4 @@ jobs:
           draft: false
           prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
