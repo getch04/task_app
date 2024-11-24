@@ -53,6 +53,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             _buildHeader(),
@@ -122,7 +123,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         horizontal: 16.0,
       ),
       child: SizedBox(
-        height: 70,
+        height: 55,
         child: TextField(
           decoration: InputDecoration(
             hintText: 'Search',
@@ -146,7 +147,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
             filled: true,
             fillColor: Colors.white,
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           ),
         ),
       ),
@@ -190,7 +191,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
               label,
               style: TextStyle(
                 color: Colors.grey[600],
-                fontSize: 12,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -243,7 +245,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
                                   ? Icons.expand_less
                                   : Icons.expand_more,
                               size: 38,
-                              color: Colors.grey[500],
+                              color:
+                                  isExpanded ? Colors.grey[500] : Colors.black,
                             ),
                             onPressed: () {
                               setState(() {
@@ -254,10 +257,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
                           const SizedBox(width: 8),
                           Text(
                             title,
-                            style: const TextStyle(
-                              fontSize: 20,
+                            style: TextStyle(
+                              fontSize: 23,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF4525A2),
+                              color: isExpanded
+                                  ? const Color(0xFF4525A2)
+                                  : Colors.black,
                             ),
                           ),
                         ],
@@ -266,7 +271,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                         icon: Icon(
                           Icons.more_vert,
                           size: 34,
-                          color: Colors.grey[500],
+                          color: isExpanded ? Colors.grey[500] : Colors.black,
                         ),
                         onPressed: () {},
                       ),
@@ -309,11 +314,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Checkbox(
-            value: task.progress == 100,
-            onChanged: (bool? value) {},
-            checkColor: Colors.grey[200],
-          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,11 +322,30 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(
-                        task.title,
-                        style: const TextStyle(fontSize: 16),
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: task.progress == 100,
+                            onChanged: (bool? value) {},
+                            checkColor: Colors.grey[200],
+                            overlayColor:
+                                WidgetStateProperty.all(Colors.grey[200]),
+                            hoverColor: Colors.grey[200],
+                            visualDensity:
+                                VisualDensity.adaptivePlatformDensity,
+                            focusColor: Colors.grey[200],
+                            activeColor: Colors.grey[200],
+                          ),
+                          Expanded(
+                            child: Text(
+                              task.title,
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(width: 50),
                     Text(
                       '${task.progress.toInt()}%',
                       style: TextStyle(
@@ -337,10 +356,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const SizedBox(width: 20),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
@@ -449,16 +468,22 @@ class _TaskListScreenState extends State<TaskListScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          side: const BorderSide(color: Colors.indigo),
+          side: BorderSide(color: Theme.of(context).primaryColor),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add, color: Colors.indigo),
-            SizedBox(width: 8),
+            Icon(
+              Icons.add,
+              color: Theme.of(context).primaryColor,
+            ),
+            const SizedBox(width: 8),
             Text(
               'Add Task',
-              style: TextStyle(color: Colors.indigo),
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -467,25 +492,38 @@ class _TaskListScreenState extends State<TaskListScreen> {
   }
 
   Widget _buildBottomNavigation() {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.indigo,
-      unselectedItemColor: Colors.grey,
-      currentIndex: 0,
-      backgroundColor: Colors.white,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.list),
-          label: 'Tasks',
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.grey[300]!)),
+      ),
+      child: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).primaryColor,
+        selectedLabelStyle: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontWeight: FontWeight.bold,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble_outline),
-          label: 'Communication',
+        unselectedLabelStyle: const TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          label: 'Profile',
-        ),
-      ],
+        unselectedItemColor: Colors.grey,
+        currentIndex: 0,
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Tasks',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+            label: 'Communication',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 
