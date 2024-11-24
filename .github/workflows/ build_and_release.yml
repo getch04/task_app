@@ -54,8 +54,10 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.13.6' # Closest Flutter version compatible with Dart 3.5.3
           channel: 'stable'
+          cache: true
+
 
       - name: Get dependencies
         run: flutter pub get
