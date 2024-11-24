@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
-import 'package:tasks_app/core/theme/app_theme.dart';
+part of task_management_presentation_widgets;
+
 
 class QuickFiltersWidget extends StatelessWidget {
   const QuickFiltersWidget({super.key});
@@ -48,4 +47,4 @@ class QuickFiltersWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}

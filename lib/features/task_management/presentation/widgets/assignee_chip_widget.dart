@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import '../services/assignee_color_service.dart';
+part of task_management_presentation_widgets;
+
 
 class AssigneeChipWidget extends StatelessWidget {
   final String initials;
@@ -33,4 +33,4 @@ class AssigneeChipWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}

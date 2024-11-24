@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
+part of task_management_presentation_widgets;
+
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
@@ -32,4 +32,4 @@ class SearchBarWidget extends StatelessWidget {
       borderSide: BorderSide(color: Colors.grey[300]!),
     );
   }
-} 
+}

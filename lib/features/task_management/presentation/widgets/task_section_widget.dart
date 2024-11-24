@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
-import 'package:tasks_app/features/task_management/domain/entities/task.dart';
-import 'package:tasks_app/features/task_management/presentation/widgets/add_task_bottom_sheet.dart';
-
-import 'task_item_widget.dart';
+part of task_management_presentation_widgets;
 
 class TaskSectionWidget extends StatefulWidget {
   final String title;

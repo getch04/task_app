@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../../core/constants/strings.dart';
+part of task_management_presentation_widgets;
 
 class TaskBottomNavigation extends StatelessWidget {
   const TaskBottomNavigation({super.key});

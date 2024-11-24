@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AssigneeColorService {
@@ -29,5 +30,9 @@ class AssigneeColorService {
     // Generate a consistent color based on the assignee string
     final hash = assignee.hashCode;
     return Colors.primaries[hash % Colors.primaries.length];
+  }
+
+  static Color getColor(String initials) {
+    return Colors.primaries[initials.hashCode % Colors.primaries.length];
   }
 }

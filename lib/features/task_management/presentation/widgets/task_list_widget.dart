@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
-import 'package:tasks_app/features/task_management/domain/entities/task.dart';
-
-import 'task_section_widget.dart';
-
+part of task_management_presentation_widgets;
 class TaskListWidget extends StatelessWidget {
   final List<Task> tasks;
 

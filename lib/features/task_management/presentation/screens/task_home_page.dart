@@ -1,12 +1,7 @@
 // lib/features/task_management/presentation/screens/task_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:tasks_app/features/task_management/domain/entities/task.dart';
-import 'package:tasks_app/features/task_management/presentation/widgets/task_bottom_navigation.dart';
-
-import '../widgets/header_widget.dart';
-import '../widgets/quick_filters_widget.dart';
-import '../widgets/search_bar_widget.dart';
-import '../widgets/task_list_widget.dart';
+import 'package:tasks_app/features/task_management/presentation/widgets/widgets.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({super.key});

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/theme/app_theme.dart';
-import 'package:tasks_app/features/task_management/domain/entities/task.dart';
+part of task_management_presentation_widgets;
+
 
 class TaskCard extends StatelessWidget {
   final Task task;

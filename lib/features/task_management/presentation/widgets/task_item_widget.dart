@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/features/task_management/domain/entities/task.dart';
-import 'dart:math' show min;
-import 'assignee_chip_widget.dart';
-import 'package:tasks_app/core/theme/app_theme.dart';
+part of task_management_presentation_widgets;
 
 class TaskItemWidget extends StatelessWidget {
   final Task task;

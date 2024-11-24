@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tasks_app/core/constants/strings.dart';
+part of task_management_presentation_widgets;
+
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -37,4 +37,4 @@ class HeaderWidget extends StatelessWidget {
       onPressed: () {},
     );
   }
-} 
+}
