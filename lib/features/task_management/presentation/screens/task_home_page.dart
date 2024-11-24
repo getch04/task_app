@@ -75,7 +75,18 @@ class _TaskListScreenState extends State<TaskListScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(Icons.notifications_outlined),
+            icon: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  shape: BoxShape.circle,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Icon(
+                    Icons.notifications_outlined,
+                    size: 32,
+                  ),
+                )),
             onPressed: () {},
           ),
           const Text(
@@ -86,7 +97,18 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.archive_outlined),
+            icon: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                shape: BoxShape.circle,
+              ),
+              child: const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Icon(
+                    Icons.archive_outlined,
+                    size: 32,
+                  )),
+            ),
             onPressed: () {},
           ),
         ],
@@ -449,6 +471,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
       selectedItemColor: Colors.indigo,
       unselectedItemColor: Colors.grey,
       currentIndex: 0,
+      backgroundColor: Colors.white,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
