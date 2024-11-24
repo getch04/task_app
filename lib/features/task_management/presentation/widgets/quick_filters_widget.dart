@@ -1,6 +1,5 @@
 part of task_management_presentation_widgets;
 
-
 class QuickFiltersWidget extends StatelessWidget {
   const QuickFiltersWidget({super.key});
 
@@ -15,7 +14,8 @@ class QuickFiltersWidget extends StatelessWidget {
           const SizedBox(width: 10),
           _buildFilterButton(AppStrings.scheduled, Icons.schedule, context),
           const SizedBox(width: 10),
-          _buildFilterButton(AppStrings.assignedToMe, Icons.person_outline, context),
+          _buildFilterButton(
+              AppStrings.assignedToMe, Icons.person_outline, context),
         ],
       ),
     );
@@ -36,6 +36,7 @@ class QuickFiltersWidget extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               label,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: AppTheme.textSecondary,
                 fontSize: 15,
