@@ -69,7 +69,6 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: 16,
         left: 16,
         right: 16,
         bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -89,10 +88,9 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.pop(context),
-                ),
+                InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.close)),
               ],
             ),
             const SizedBox(height: 24),
@@ -104,15 +102,26 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
             const SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
               ),
               child: DropdownButtonFormField<String>(
                 value: _selectedMember,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Assign Member (Optional)',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
                 ),
                 items: const [
                   DropdownMenuItem(value: 'M', child: Text('Member 1')),
@@ -127,10 +136,10 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
               onTap: _selectDate,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,10 +164,10 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
               onTap: _selectTime,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,15 +187,17 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 34),
             SizedBox(
               width: double.infinity,
               child: CustomButton(
-                text: 'Create Task',
-                onPressed: _handleCreateTask,
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
+                  text: 'Create Task',
+                  onPressed: _handleCreateTask,
+                  backgroundColor: const Color(0xff4525a2)),
             ),
+            const SizedBox(
+              height: 40,
+            )
           ],
         ),
       ),

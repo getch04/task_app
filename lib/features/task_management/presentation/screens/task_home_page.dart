@@ -2,12 +2,13 @@
 import 'dart:math' show min, Random;
 
 import 'package:flutter/material.dart';
+import 'package:tasks_app/features/task_management/presentation/widgets/add_task_bottom_sheet.dart';
 
 class Task {
   final String title;
   final DateTime dueDate;
   final List<String> assignees;
-  final double progress;
+  double progress;
 
   Task({
     required this.title,
@@ -326,15 +327,13 @@ class _TaskListScreenState extends State<TaskListScreen> {
                         children: [
                           Checkbox(
                             value: task.progress == 100,
-                            onChanged: (bool? value) {},
-                            checkColor: Colors.grey[200],
-                            overlayColor:
-                                WidgetStateProperty.all(Colors.grey[200]),
-                            hoverColor: Colors.grey[200],
-                            visualDensity:
-                                VisualDensity.adaptivePlatformDensity,
-                            focusColor: Colors.grey[200],
-                            activeColor: Colors.grey[200],
+                            onChanged: (bool? value) {
+                              setState(() {
+                                task.progress = value! ? 100 : 0;
+                              });
+                            },
+                            checkColor: Colors.white,
+                            activeColor: Theme.of(context).primaryColor,
                           ),
                           Expanded(
                             child: Text(
@@ -463,7 +462,18 @@ class _TaskListScreenState extends State<TaskListScreen> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            showDragHandle: true,
+            backgroundColor: Colors.white,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            builder: (context) => const AddTaskBottomSheet(),
+          );
+        },
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -473,17 +483,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.add,
-              color: Theme.of(context).primaryColor,
-            ),
+            Icon(Icons.add, color: Theme.of(context).primaryColor),
             const SizedBox(width: 8),
             Text(
               'Add Task',
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold),
+                color: Theme.of(context).primaryColor,
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
