@@ -9,7 +9,6 @@ import '../providers.dart';
 class AddTaskBottomSheet extends ConsumerStatefulWidget {
   const AddTaskBottomSheet({super.key});
 
-
   @override
   ConsumerState<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
@@ -54,16 +53,7 @@ class _AddTaskBottomSheetState extends ConsumerState<AddTaskBottomSheet> {
     final title = _titleController.text;
     if (title.isEmpty) return;
 
-    DateTime? finalDateTime;
-    if (_selectedDate != null && _selectedTime != null) {
-      finalDateTime = DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-        _selectedTime!.hour,
-        _selectedTime!.minute,
-      );
-    }
+    if (_selectedDate != null && _selectedTime != null) {}
 
     // Add task using the controller
     ref.read(taskControllerProvider.notifier).addTask(

@@ -96,19 +96,36 @@ class _TaskListScreenState extends State<TaskListScreen> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Search',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey[200]!),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
+      child: SizedBox(
+        height: 70,
+        child: TextField(
+          decoration: InputDecoration(
+            hintText: 'Search',
+            hintStyle: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 16,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: Colors.grey[300]!),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: Colors.grey[300]!),
+            ),
+            suffixIcon: Icon(
+              Icons.search,
+              size: 30,
+              color: Colors.grey.shade600,
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           ),
-          suffixIcon: const Icon(Icons.search),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
       ),
     );
